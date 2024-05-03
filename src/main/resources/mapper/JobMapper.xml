@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shookmaker.exercise.mapper.JobMapper">
+    <resultMap id="JobResultMap" type="com.shookmaker.exercise.entity.vo.JobVO">
+        <id property="id" column="id"/>
+        <result property="jobName" column="jobName"/>
+        <!-- industry 映射 -->
+        <association property="industry" javaType="com.shookmaker.exercise.entity.vo.IndustryVO">
+            <id property="id" column="id"/>
+            <result property="industryName" column="industryName"/>
+        </association>
+    </resultMap>
+    <select id="getJobById">
+        select job.id, jobName, job.industryId from job
+        LEFT JOIN industry ON job.industryId = industry.id
+        where job.id = #{jobId}
+    </select>
+    <select id="getJobsByIndustryId" resultType="com.shookmaker.exercise.entity.vo.JobVO">
+        select id, jobName from job where job.industryId = #{industryId}
+    </select>
+
+    <insert id="addJob">
+        insert into job (jobName, industryId) values (#{jobDto.jobName}, #{jobDto.industryId})
+    </insert>
+    <update id="updateJob">
+        update job
+        <set>
+            <if test="jobDto.jobName != null">
+                jobName = #{jobDto.jobName},
+            </if>
+            <if test="jobDto.industryId != null">
+                industryId = #{jobDto.industryId},
+            </if>
+        </set>
+        where id = #{jobDto.id}
+    </update>
+    <delete id="deleteJobById">
+        delete from job where id = #{jobId}
+    </delete>
+    <delete id="deleteJobsByIndustryId">
+        delete from job where industryId = #{industryId}
+    </delete>
+
+</mapper>

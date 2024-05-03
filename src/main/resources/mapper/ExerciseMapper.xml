@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shookmaker.exercise.mapper.ExerciseMapper">
+    <resultMap id="ExerciseResultMap" type="com.shookmaker.exercise.entity.vo.ExerciseVO">
+        <id property="id" column="id"/>
+        <result property="exerciseAnswer" column="exerciseAnswer"/>
+        <result property="exerciseContent" column="exerciseContent"/>
+        <association property="industry" javaType="com.shookmaker.exercise.entity.vo.IndustryVO">
+            <id property="id" column="industryId"/>
+            <result property="industryName" column="industryName"/>
+        </association>
+        <association property="job" javaType="com.shookmaker.exercise.entity.vo.JobVO">
+            <id property="id" column="jobId"/>
+            <result property="jobName" column="jobName"/>
+        </association>
+        <association property="user" javaType="com.shookmaker.exercise.entity.vo.UserVO">
+            <id property="id" column="ownerId"/>
+            <result property="userName" column="userName"/>
+        </association>
+    </resultMap>
+    <select id="getExerciseById" resultMap="ExerciseResultMap">
+        select id, exerciseContent, exerciseAnswer from exercise where id = #{exerciseId}
+    </select>
+    <select id="getExercisesByUserId" resultMap="ExerciseResultMap">
+        select id, exerciseContent, exerciseAnswer from exercise where ownerId = #{userId}
+    </select>
+    <select id="getExercisesByPageData" resultMap="ExerciseResultMap">
+        select id, exerciseContent, exerciseAnswer from exercise
+        <where>
+            <if test="userId != null">
+                ownerId = #{userId}
+            </if>
+        </where>
+        limit #{pageData.limit}, #{pageData.offset}
+    </select>
+    <delete id="deleteExeriseById">
+        delete from exercise where id = #{exerciseId}
+    </delete>
+    <insert id="addExercise" parameterType="com.shookmaker.exercise.entity.dto.ExerciseDTO">
+        insert into exercise (exerciseContent, exerciseAnswer, ownerId, industryId, jobId)
+        values (#{exerciseDto.exerciseContent}, #{exerciseDto.exerciseAnswer}, #{exerciseDto.ownerId},
+                #{exerciseDto.industryId}, #{exerciseDto.jobId})
+    </insert>
+    <update id="updateExercise" parameterType="com.shookmaker.exercise.entity.dto.ExerciseDTO">
+        update exercise
+        <set>
+            <if test="exerciseDto.exerciseContent != null">
+                exerciseContent = #{exerciseDto.exerciseContent},
+            </if>
+            <if test="exerciseDto.exerciseAnswer != null">
+                exerciseAnswer = #{exerciseDto.exerciseAnswer},
+            </if>
+            <if test="exerciseDto.industryId != null">
+                industryId = #{exerciseDto.industryId},
+            </if>
+            <if test="exerciseDto.jobId != null">
+                jobId = #{exerciseDto.jobId},
+            </if>
+            <if test="exerciseDto.ownerId != null">
+                ownerId = #{exerciseDto.ownerId},
+            </if>
+        </set>
+        where id = #{exerciseDto.id}
+    </update>
+    <select id="getCollectCountByUserId" resultMap="ExerciseResultMap">
+        select exercise.id, exerciseContent, exerciseAnswer from exercise
+        left join user on exercise.ownerId = user.id
+        where exercise.ownerId = #{userId}
+        limit #{limit}, #{offset}
+    </select>
+    <insert id="collectExercise">
+        insert into collection (userId, exerciseId) values (#{userId}, #{exerciseId})
+    </insert>
+    <delete id="unCollectExercise">
+        delete from collection where userId = #{userId} and exerciseId = #{exerciseId}
+    </delete>
+    <select id="getCollectExercises" resultMap="ExerciseResultMap">
+        select * from collection
+        left join exercise on collection.exerciseId = exercise.id
+        left join user on collection.userId = user.id
+        where collection.userId = #{userId}
+        limit #{pageData.limit}, #{pageData.offset}
+    </select>
+
+
+</mapper>

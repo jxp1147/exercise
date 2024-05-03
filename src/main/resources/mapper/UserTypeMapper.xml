@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shookmaker.exercise.mapper.UserTypeMapper">
+    <select id="getAllUserTypes" resultType="com.shookmaker.exercise.entity.vo.UserTypeVO">
+        select id, typeName, typeValue from userType;
+    </select>
+    <select id="getUserTypeById" resultType="com.shookmaker.exercise.entity.vo.UserTypeVO">
+        select id, typeName, typeValue from userType where id = #{userTypeId};
+    </select>
+    <insert id="addUserType">
+        insert into userType (typeName, typeValue) values (#{userTypeDTO.typeName}, #{userTypeDTO.typeValue});
+    </insert>
+
+    <update id="updateUserType">
+        update userType
+        <set>
+            <if test="userTypeDTO.typeName != null">
+                typeName = #{userTypeDTO.typeName},
+            </if>
+            <if test="userTypeDTO.typeName != null">
+                typeValue = #{userTypeDTO.typeValue},
+            </if>
+        </set>
+        where id = #{userTypeDTO.id}
+    </update>
+    <delete id="deleteUserTypeById">
+        delete from userType where id = #{userTypeId}
+    </delete>
+</mapper>

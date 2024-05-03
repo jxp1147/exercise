@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shookmaker.exercise.mapper.IndustryMapper">
+    <select id="getAllIndustries" resultType="com.shookmaker.exercise.entity.vo.IndustryVO">
+        select id, industryName from industry;
+    </select>
+    <select id="getIndustryById" resultType="com.shookmaker.exercise.entity.vo.IndustryVO">
+        select id, industryName from industry where id = #{industryId};
+    </select>
+    <update id="updateIndustry">
+        update industry
+        <set>
+            <if test="industryDto.industryName != null">
+                industryName = #{industryDto.industryName},
+            </if>
+        </set>
+        where id = #{industryDto.id}
+    </update>
+    <insert id="addIndustry">
+        insert into industry (industryName) values (#{industryDto.industryName});
+    </insert>
+    <delete id="deleteIndustryById">
+        delete from industry where id = #{industryId};
+    </delete>
+
+</mapper>

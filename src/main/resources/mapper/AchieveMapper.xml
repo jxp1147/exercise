@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shookmaker.exercise.mapper.AchieveMapper">
+    <select id="getAllAchieves" resultType="com.shookmaker.exercise.entity.vo.AchieveVO">
+        select id, achieveName from achieve;
+    </select>
+    <select id="getAchieveById" resultType="com.shookmaker.exercise.entity.vo.AchieveVO">
+        select id, achieveName from achieve where id = #{achieveId};
+    </select>
+    <insert id="addAchieve" parameterType="com.shookmaker.exercise.entity.dto.AchieveDTO">
+        insert into achieve (achieveName) values (#{achieveDto.achieveName});
+    </insert>
+    <update id="updateAchieve" parameterType="com.shookmaker.exercise.entity.dto.AchieveDTO">
+        update achieve set achieveName = #{achieveDto.achieveName} where id = #{achieveDto.id}
+    </update>
+    <delete id="deleteAchieveById">
+        delete from achieve where id = #{achieveId};
+    </delete>
+    <insert id="bindAchieveByUserId">
+        insert into userAchieve (userId, achieveId) values (#{userId}, #{achieveId})
+    </insert>
+    <delete id="unbindAchieveByUserId">
+        delete from userAchieve where userId = #{userId} and achieveId = #{achieveId}
+    </delete>
+</mapper>
