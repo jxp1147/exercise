@@ -14,7 +14,12 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String url = request.getRequestURL().toString();
         System.out.println("url:" + url);
-        if (url.contains("login") || url.contains("register") || url.contains("swagger-ui")) {
+        if (url.contains("login")
+                || url.contains("register")
+                || url.contains("swagger-ui")
+                || url.contains("getAllIndustries")
+                || url.contains("getJobsByIndustryId")
+        ) {
             return true;
         }
         String jwt = request.getHeader("Authorization");

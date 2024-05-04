@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/Industry")
+@RequestMapping("/api/industry")
 public class IndustryController {
     @Autowired
     private IIndustryService service;
@@ -18,19 +18,19 @@ public class IndustryController {
 
     @GetMapping("/{industryId}")
     public ResultBody getIndustryById(@PathVariable("industryId") Integer industryId) {
-        return ResultBody.success(service.getIndustryById(industryId));
+        return service.getIndustryById(industryId);
     }
 
-    @PutMapping("/updateUserTye")
+    @PutMapping("/updateIndustry")
     public ResultBody updateIndustry(@RequestBody IndustryDTO industryDTO){
-        return ResultBody.success(service.updateIndustry(industryDTO));
+        return service.updateIndustry(industryDTO);
     }
     @DeleteMapping("/{industryId}")
     public ResultBody deleteIndustryById(@PathVariable("industryId") Integer industryId) {
-        return ResultBody.success(service.deleteIndustryById(industryId));
+        return service.deleteIndustryById(industryId);
     }
     @PostMapping("/addIndustry")
     public ResultBody addIndustry(@RequestBody IndustryDTO industryDTO) {
-        return ResultBody.success(service.addIndustry(industryDTO));
+        return service.addIndustry(industryDTO);
     }
 }

@@ -13,6 +13,6 @@ public class JobBO {
 
     private String jobName;
 
-    private String industryName;
+    private IndustryBO industry;
 
 }

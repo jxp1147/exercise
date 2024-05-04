@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/Achieve")
+@RequestMapping("/api/achieve")
 public class AchieveController {
     @Autowired
     private IAchieveService service;

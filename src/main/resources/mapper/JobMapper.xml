@@ -10,13 +10,14 @@
             <result property="industryName" column="industryName"/>
         </association>
     </resultMap>
-    <select id="getJobById">
-        select job.id, jobName, job.industryId from job
+    <select id="getJobById" resultMap="JobResultMap">
+        select job.id, jobName, industryId, industryName from job
         LEFT JOIN industry ON job.industryId = industry.id
         where job.id = #{jobId}
     </select>
-    <select id="getJobsByIndustryId" resultType="com.shookmaker.exercise.entity.vo.JobVO">
-        select id, jobName from job where job.industryId = #{industryId}
+    <select id="getJobsByIndustryId" resultMap="JobResultMap">
+        select job.id, jobName, industryId, industryName from job
+        LEFT JOIN industry ON job.industryId = industry.id where job.industryId = #{industryId}
     </select>
 
     <insert id="addJob">
@@ -26,10 +27,10 @@
         update job
         <set>
             <if test="jobDto.jobName != null">
-                jobName = #{jobDto.jobName},
+                jobName =#{jobDto.jobName},
             </if>
             <if test="jobDto.industryId != null">
-                industryId = #{jobDto.industryId},
+                industryId =#{jobDto.industryId},
             </if>
         </set>
         where id = #{jobDto.id}

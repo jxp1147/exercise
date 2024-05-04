@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shookmaker.exercise.mapper.UserMapper">
-    <select id="getUserByUserName" resultType="com.shookmaker.exercise.entity.vo.UserVO">
-        SELECT id,userName,password,userTypeId FROM USER WHERE username =#{userName}
+    <select id="getUserByUserName" resultMap="UserResultMap">
+        SELECT id,userName,password,userTypeId FROM user WHERE username =#{userName}
     </select>
 
     <resultMap id="UserResultMap" type="com.shookmaker.exercise.entity.vo.UserVO">
@@ -35,7 +35,8 @@
         </association>
     </resultMap>
     <select id="getUserByUserId" resultMap="UserResultMap">
-        SELECT user.id, userName ,password,user.userTypeId, createTime,user.jobId,questionNum,avatar,signature,user.industryId
+        SELECT user.id, userName ,password,user.userTypeId, createTime,user.jobId,questionNum,avatar,signature,user.industryId,
+               jobName, industryName, typeName, typeValue
         FROM user
         LEFT JOIN userType ON user.userTypeId = userType.id
         LEFT JOIN job ON user.jobId = job.id
@@ -82,7 +83,8 @@
     </delete>
 
     <select id="getUsers" resultMap="UserResultMap">
-        SELECT user.id, userName ,password,user.userTypeId, createTime,user.jobId,questionNum,avatar,signature,user.industryId
+        SELECT user.id, userName ,password,user.userTypeId, createTime,user.jobId,questionNum,avatar,signature,user.industryId,
+               jobName, industryName, typeName, typeValue
         FROM user
                  LEFT JOIN userType ON user.userTypeId = userType.id
                  LEFT JOIN job ON user.jobId = job.id

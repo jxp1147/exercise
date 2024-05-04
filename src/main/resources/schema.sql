@@ -2,74 +2,79 @@ CREATE DATABASE IF NOT EXISTS doex;
 USE doex;
 
 CREATE TABLE IF NOT EXISTS userType (
-                                        id INT AUTO_INCREMENT PRIMARY KEY,
-                                        typeName VARCHAR(50) NOT NULL UNIQUE,
-                                        typeValue int NOT NULL UNIQUE);
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    typeName VARCHAR(50) NOT NULL UNIQUE,
+    typeValue int NOT NULL UNIQUE)
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS industry (
-                                        id INT AUTO_INCREMENT PRIMARY KEY,
-                                        industryName VARCHAR(50) NOT NULL UNIQUE);
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    industryName VARCHAR(50) NOT NULL UNIQUE)
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS job (
-                                   id INT AUTO_INCREMENT PRIMARY KEY,
-                                   jobName VARCHAR(50) NOT NULL UNIQUE,
-                                   industryId INT,
-                                   FOREIGN KEY (industryId) REFERENCES industry(id));
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    jobName VARCHAR(50) NOT NULL UNIQUE,
+    industryId INT,
+    FOREIGN KEY (industryId) REFERENCES industry(id))
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS user (
-                                    id INT AUTO_INCREMENT PRIMARY KEY,
-                                    userName VARCHAR(50) NOT NULL UNIQUE,
-                                    password VARCHAR(50) NOT NULL,
-                                    userTypeId INT NOT NULL DEFAULT 3,
-                                    FOREIGN KEY (userTypeId) REFERENCES userType(id),
-                                    industryId int,
-                                    FOREIGN KEY (industryId) REFERENCES industry(id),
-                                    jobId int,
-                                    FOREIGN KEY (jobId) REFERENCES job(id),
-                                    questionNum INT default 0,
-                                    createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                    `avatar` text,
-                                    `signature` text
-);
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userName VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL,
+    userTypeId INT NOT NULL DEFAULT 3,
+    FOREIGN KEY (userTypeId) REFERENCES userType(id),
+    industryId int,
+    FOREIGN KEY (industryId) REFERENCES industry(id),
+    jobId int,
+    FOREIGN KEY (jobId) REFERENCES job(id),
+    questionNum INT default 0,
+    createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `avatar` text,
+    `signature` text)
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table if not exists achieve (
-                                       id INT AUTO_INCREMENT PRIMARY KEY,
-                                       achieveName VARCHAR(50) NOT NULL,
-                                       achieveUrl VARCHAR(50)
-);
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    achieveName VARCHAR(50) NOT NULL,
+    achieveUrl VARCHAR(50))
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table if not exists userAchieve (
-                                           userId INT NOT NULL,
-                                           FOREIGN KEY (userId) REFERENCES user(id),
-                                           achieveId INT NOT NULL,
-                                           FOREIGN KEY (achieveId) REFERENCES achieve(id)
-);
+    userId INT NOT NULL,
+    FOREIGN KEY (userId) REFERENCES user(id),
+    achieveId INT NOT NULL,
+    FOREIGN KEY (achieveId) REFERENCES achieve(id))
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table if not exists exercise (
-                                        id INT AUTO_INCREMENT PRIMARY KEY,
-                                        industryId INT not null,
-                                        FOREIGN KEY (industryId) REFERENCES industry(id),
-                                        jobId INT NOT NULL,
-                                        FOREIGN KEY (jobId) REFERENCES job(id),
-                                        exerciseContent longtext,
-                                        exerciseAnswer longtext,
-                                        ownerId INT NOT NULL,
-                                        FOREIGN KEY (ownerId) REFERENCES user(id)
-);
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    industryId INT not null,
+    FOREIGN KEY (industryId) REFERENCES industry(id),
+    jobId INT NOT NULL,
+    FOREIGN KEY (jobId) REFERENCES job(id),
+    exerciseContent longtext,
+    exerciseAnswer longtext,
+    ownerId INT NOT NULL,
+    FOREIGN KEY (ownerId) REFERENCES user(id))
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 create table if not exists history (
-                                       userId INT NOT NULL,
-                                       FOREIGN KEY (userId) REFERENCES user(id),
-                                       exerciseId INT NOT NULL,
-                                       FOREIGN KEY (exerciseId) REFERENCES exercise(id)
-);
+    userId INT NOT NULL,
+    FOREIGN KEY (userId) REFERENCES user(id),
+    exerciseId INT NOT NULL,
+    FOREIGN KEY (exerciseId) REFERENCES exercise(id))
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 
 create table if not exists collection (
-                                          userId INT NOT NULL,
-                                          FOREIGN KEY (userId) REFERENCES user(id),
-                                          exerciseId INT NOT NULL,
-                                          FOREIGN KEY (exerciseId) REFERENCES exercise(id)
-);
+    userId INT NOT NULL,
+    FOREIGN KEY (userId) REFERENCES user(id),
+    exerciseId INT NOT NULL,
+    FOREIGN KEY (exerciseId) REFERENCES exercise(id))
+    CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 INSERT INTO userType (id, typeName, typeValue) VALUES
                                                    (1, 'admin', 111),
                                                    (2,'commiter', 011),

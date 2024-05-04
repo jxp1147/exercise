@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class IndustryVO {
     private Integer id;
-
     private String industryName;
 
 }

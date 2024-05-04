@@ -18,19 +18,19 @@ public class UserTypeController {
 
     @GetMapping("/{userTypeId}")
     public ResultBody getUserTypeById(@PathVariable("userTypeId") Integer userTypeId) {
-        return ResultBody.success(service.getUserTypeById(userTypeId));
+        return service.getUserTypeById(userTypeId);
     }
 
     @PutMapping("/updateUserTye")
     public ResultBody updateUserType(@RequestBody UserTypeDTO userTypeDTO){
-        return ResultBody.success(service.updateUserType(userTypeDTO));
+        return service.updateUserType(userTypeDTO);
     }
     @DeleteMapping("/{userTypeId}")
     public ResultBody deleteUserTypeById(@PathVariable("userTypeId") Integer userTypeId) {
-        return ResultBody.success(service.deleteUserTypeById(userTypeId));
+        return service.deleteUserTypeById(userTypeId);
     }
     @PostMapping("/addUserType")
     public ResultBody addUserType(@RequestBody UserTypeDTO userTypeDTO) {
-        return ResultBody.success(service.addUserType(userTypeDTO));
+        return service.addUserType(userTypeDTO);
     }
 }
