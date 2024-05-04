@@ -11,12 +11,4 @@ public class AchieveDTO {
     private Integer id;
 
     private String achieveName;
-
-    @Override
-    public String toString() {
-        return "Achieves{" +
-            "id=" + id +
-            ", achieveName=" + achieveName +
-        "}";
-    }
 }

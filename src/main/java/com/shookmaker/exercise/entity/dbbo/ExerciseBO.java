@@ -11,14 +11,14 @@ public class ExerciseBO {
 
     private Integer id;
 
-    private Integer industryId;
+    private IndustryBO industry;
 
-    private Integer jobId;
+    private JobBO job;
 
     private String exerciseContent;
 
     private String exerciseAnswer;
 
-    private Integer ownerId;
+    private UserBO ownerId;
 
 }

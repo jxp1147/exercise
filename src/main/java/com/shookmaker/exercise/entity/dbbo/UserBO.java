@@ -16,11 +16,11 @@ public class UserBO {
 
     private String password;
 
-    private Integer userTypeId;
+    private UserTypeBO userType;
 
-    private Integer industryId;
+    private IndustryBO industry;
 
-    private Integer jobId;
+    private JobBO job;
 
     private Integer questionNum;
 
