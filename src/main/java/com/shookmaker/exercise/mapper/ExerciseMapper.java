@@ -18,6 +18,6 @@ public interface ExerciseMapper {
     ExerciseVO getExerciseById(@Param("exerciseId") Integer exerciseId);
     Integer collectExercise(@Param("userId") Integer userId, @Param("exerciseId") Integer exerciseId);
     Integer unCollectExercise(@Param("userId") Integer userId, @Param("exerciseId") Integer exerciseId);
-    List<ExerciseVO> getCollectExercises(@Param("pageData") PageData pageData, @Param("userId") Integer userId);
-    List<ExerciseVO> getExercisesByPageData(@Param("pageData") PageData pageData, @Param("userId") Integer userId);
+    List<ExerciseVO> getCollectExercises(@Param("currentPage")Integer currentPage, @Param("pageSize")Integer pageSize,  @Param("userId") Integer userId);
+    List<ExerciseVO> getExercisesByPageData(@Param("currentPage")Integer currentPage, @Param("pageSize")Integer pageSize,  @Param("userId") Integer userId);
 }

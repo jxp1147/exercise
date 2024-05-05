@@ -13,7 +13,7 @@ public class IndustryController {
     private IIndustryService service;
     @GetMapping("/getAllIndustries")
     public ResultBody getAllIndustries() {
-        return ResultBody.success(service.getAllIndustries());
+        return service.getAllIndustries()   ;
     }
 
     @GetMapping("/{industryId}")

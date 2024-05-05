@@ -46,9 +46,9 @@
 
 
     <insert id="register" parameterType="com.shookmaker.exercise.entity.dto.UserDTO">
-        insert into  user (userName,password,userTypeId,jobId,avatar,signature,industryId)
+        insert into  user (userName,password,jobId,avatar,signature,industryId)
         values
-            (#{userDto.userName},#{userDto.password},#{userDto.userTypeId},#{userDto.jobId},#{userDto.avatar},#{userDto.signature},#{userDto.industryId})
+            (#{userDto.userName},#{userDto.password},#{userDto.jobId},#{userDto.avatar},#{userDto.signature},#{userDto.industryId})
     </insert>
 
     <update id="updateUser" parameterType="com.shookmaker.exercise.entity.dto.UserDTO">

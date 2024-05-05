@@ -31,7 +31,7 @@
                 ownerId = #{userId}
             </if>
         </where>
-        limit #{pageData.limit}, #{pageData.offset}
+        limit #{currentPage}, #{pageSize}
     </select>
     <delete id="deleteExeriseById">
         delete from exercise where id = #{exerciseId}
@@ -65,7 +65,9 @@
     <select id="getCollectCountByUserId" resultMap="ExerciseResultMap">
         select exercise.id, exerciseContent, exerciseAnswer from exercise
         left join user on exercise.ownerId = user.id
-        where exercise.ownerId = #{userId}
+        <if test="userId != null">
+            where exercise.ownerId = #{userId}
+        </if>
         limit #{limit}, #{offset}
     </select>
     <insert id="collectExercise">
@@ -78,8 +80,10 @@
         select * from collection
         left join exercise on collection.exerciseId = exercise.id
         left join user on collection.userId = user.id
-        where collection.userId = #{userId}
-        limit #{pageData.limit}, #{pageData.offset}
+        <if test="userId != null">
+            where collection.userId = #{userId}
+        </if>
+        limit #{currentPage}, #{pageSize}
     </select>
 
 

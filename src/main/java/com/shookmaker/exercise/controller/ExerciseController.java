@@ -4,6 +4,7 @@ import com.shookmaker.exercise.entity.dto.ExerciseDTO;
 import com.shookmaker.exercise.exception.ResultBody;
 import com.shookmaker.exercise.service.IExerciseService;
 import com.shookmaker.exercise.uitls.PageData;
+import com.shookmaker.exercise.uitls.PageDataById;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,16 @@ public class ExerciseController {
         return service.getExerciseById(exerciseId);
     }
     @PostMapping("/getExercisesByPageData")
-    public ResultBody getExercisesByPageData(@Param("pageData") PageData pageData, @Param("userId") Integer userId) {
+    public ResultBody getExercisesByPageData(@RequestBody PageDataById pageDataById) {
+        PageData pageData = pageDataById.getPageData();
+        Integer userId = pageDataById.getId();
         return service.getExercisesByPageData(pageData.getCurrentPage(), pageData.getPageSize(), userId);
     }
 
     @PostMapping("/getCollectExercises")
-    public ResultBody getCollectExercises(@Param("pageData") PageData pageData, @Param("userId") Integer userId) {
+    public ResultBody getCollectExercises(@RequestBody PageDataById pageDataById) {
+        PageData pageData = pageDataById.getPageData();
+        Integer userId = pageDataById.getId();
         return service.getCollectExercises(pageData.getCurrentPage(), pageData.getPageSize(), userId);
     }
     @PostMapping("/collectExercise")

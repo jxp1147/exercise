@@ -49,19 +49,14 @@ public class ExerciseServiceImpl implements IExerciseService {
     }
 
     @Override
-    public ResultBody getExercisesByPageData(Integer page, Integer limit, Integer userId) {
-        PageData pageData = new PageData();
-        pageData.setCurrentPage(page);
-        pageData.setPageSize(limit);
-        return ResultBody.success(exerciseMapper.getExercisesByPageData(pageData, userId));
+    public ResultBody getExercisesByPageData(Integer currentPage, Integer pageSize, Integer userId) {
+
+        return ResultBody.success(exerciseMapper.getExercisesByPageData(currentPage, pageSize, userId));
     }
 
     @Override
-    public ResultBody getCollectExercises(Integer page, Integer limit, Integer userId) {
-        PageData pageData = new PageData();
-        pageData.setCurrentPage(page);
-        pageData.setPageSize(limit);
-        return ResultBody.success(exerciseMapper.getCollectExercises(pageData, userId));
+    public ResultBody getCollectExercises(Integer currentPage, Integer pageSize, Integer userId) {
+        return ResultBody.success(exerciseMapper.getCollectExercises(currentPage, pageSize, userId));
     }
 
     @Override
