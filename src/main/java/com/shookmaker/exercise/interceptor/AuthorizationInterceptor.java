@@ -19,6 +19,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
                 || url.contains("swagger-ui")
                 || url.contains("getAllIndustries")
                 || url.contains("getJobsByIndustryId")
+                || url.contains("answer")
         ) {
             return true;
         }

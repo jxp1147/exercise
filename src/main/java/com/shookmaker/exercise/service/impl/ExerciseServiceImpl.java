@@ -4,7 +4,6 @@ import com.shookmaker.exercise.entity.dto.ExerciseDTO;
 import com.shookmaker.exercise.exception.ResultBody;
 import com.shookmaker.exercise.mapper.ExerciseMapper;
 import com.shookmaker.exercise.service.IExerciseService;
-import com.shookmaker.exercise.uitls.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +18,6 @@ public class ExerciseServiceImpl implements IExerciseService {
             return ResultBody.success();
         }
         return ResultBody.error("添加失败");
-    }
-
-    @Override
-    public ResultBody answer(Integer exerciseId, String answer) {
-        // 暂未完成
-        return ResultBody.success();
     }
 
     @Override

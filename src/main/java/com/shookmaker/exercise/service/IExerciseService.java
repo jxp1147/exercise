@@ -12,5 +12,4 @@ public interface IExerciseService {
     ResultBody collectExercise(Integer userId, Integer exerciseId);
     ResultBody unCollectExercise(Integer userId, Integer exerciseId);
     ResultBody addExercise(ExerciseDTO exerciseDto);
-    ResultBody answer(Integer exerciseId, String answer);
 }
