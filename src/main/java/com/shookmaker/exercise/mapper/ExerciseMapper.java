@@ -19,5 +19,5 @@ public interface ExerciseMapper {
     Integer collectExercise(@Param("userId") Integer userId, @Param("exerciseId") Integer exerciseId);
     Integer unCollectExercise(@Param("userId") Integer userId, @Param("exerciseId") Integer exerciseId);
     List<ExerciseVO> getCollectExercises(@Param("currentPage")Integer currentPage, @Param("pageSize")Integer pageSize,  @Param("userId") Integer userId);
-    List<ExerciseVO> getExercisesByPageData(@Param("currentPage")Integer currentPage, @Param("pageSize")Integer pageSize,  @Param("userId") Integer userId);
+    List<ExerciseVO> getExercisesByPageData(@Param("limit") Integer limit, @Param("offset") Integer offset, @Param("ownerId") Integer ownerId);
 }

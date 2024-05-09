@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shookmaker.exercise.mapper.UserMapper">
     <select id="getUserByUserName" resultMap="UserResultMap">
-        SELECT id,userName,password,userTypeId FROM user WHERE username =#{userName}
+        SELECT user.id, userName ,password,user.userTypeId, createTime,user.jobId,questionNum,avatar,signature,user.industryId,
+               jobName, industryName, typeName, typeValue
+        FROM user
+                 LEFT JOIN userType ON user.userTypeId = userType.id
+                 LEFT JOIN job ON user.jobId = job.id
+                 LEFT JOIN industry ON user.industryId = industry.id
+        WHERE username =#{userName}
     </select>
 
     <resultMap id="UserResultMap" type="com.shookmaker.exercise.entity.vo.UserVO">
@@ -54,25 +60,25 @@
     <update id="updateUser" parameterType="com.shookmaker.exercise.entity.dto.UserDTO">
         update user
         <set>
-            <if test="userName != null">
+            <if test="userDto.userName != null">
                 userName = #{userDto.userName},
             </if>
-            <if test="password != null">
+            <if test="userDto.password != null">
                 password = #{userDto.password},
             </if>
-            <if test="userTypeId != null">
+            <if test="userDto.userTypeId != null">
                 userTypeId = #{userDto.userTypeId},
             </if>
-            <if test="jobId!= null">
+            <if test="userDto.jobId!= null">
                 user.jobId = #{userDto.jobId},
             </if>
-            <if test="industryId!= null">
+            <if test="userDto.industryId!= null">
                 user.industryId = #{userDto.industryId},
             </if>
-            <if test="avatar!= null">
+            <if test="userDto.avatar!= null">
                 user.avatar = #{userDto.avatar},
             </if>
-            <if test="signature!= null">
+            <if test="userDto.signature!= null">
                 user.signature = #{userDto.signature},
             </if>
         </set>

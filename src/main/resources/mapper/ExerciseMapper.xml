@@ -24,14 +24,14 @@
     <select id="getExercisesByUserId" resultMap="ExerciseResultMap">
         select id, exerciseContent, exerciseAnswer from exercise where ownerId = #{userId}
     </select>
-    <select id="getExercisesByPageData" resultMap="ExerciseResultMap">
+    <select id="getExercisesByPageData" resultType="com.shookmaker.exercise.entity.vo.ExerciseVO">
         select id, exerciseContent, exerciseAnswer from exercise
         <where>
-            <if test="userId != null">
-                ownerId = #{userId}
+            <if test="ownerId != null">
+                ownerId = #{ownerId}
             </if>
         </where>
-        limit #{currentPage}, #{pageSize}
+        limit #{limit}, #{offset}
     </select>
     <delete id="deleteExeriseById">
         delete from exercise where id = #{exerciseId}

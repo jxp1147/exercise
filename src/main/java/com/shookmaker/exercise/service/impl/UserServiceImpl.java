@@ -31,6 +31,8 @@ public class UserServiceImpl implements IUserService {
         userMap.put("userName", user.getUserName());
         userMap.put("id", user.getId());
         userMap.put("userType", user.getUserType());
+        userMap.put("jobId", user.getJob().getId());
+        userMap.put("industryId", user.getIndustry().getId());
         String jwt = JwtUtil.getJwt(userMap);
         // 用户存在且密码匹配，返回用户对象
         Map<String, Object> loginResponseMap = new HashMap<>();
@@ -53,7 +55,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResultBody updateUser(UserDTO user) {
-        Integer updateNum = userMapper.updateUserById(user);
+        Integer updateNum = userMapper.updateUser(user);
         if (updateNum == 0) {
             return ResultBody.error(-1,"更新失败: 用户不存在");
         }

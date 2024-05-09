@@ -4,6 +4,8 @@ import com.shookmaker.exercise.entity.dto.ExerciseDTO;
 import com.shookmaker.exercise.exception.ResultBody;
 import com.shookmaker.exercise.mapper.ExerciseMapper;
 import com.shookmaker.exercise.service.IExerciseService;
+import com.shookmaker.exercise.uitls.PageData;
+import com.shookmaker.exercise.uitls.PageDataById;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,9 +44,12 @@ public class ExerciseServiceImpl implements IExerciseService {
     }
 
     @Override
-    public ResultBody getExercisesByPageData(Integer currentPage, Integer pageSize, Integer userId) {
-
-        return ResultBody.success(exerciseMapper.getExercisesByPageData(currentPage, pageSize, userId));
+    public ResultBody getExercisesByPageData(PageDataById pageDataById) {
+        PageData pageData = pageDataById.getPageData();
+        Integer offset = pageData.getPageSize();
+        Integer limit = (pageData.getCurrentPage() - 1) * offset;
+        Integer ownerId = pageDataById.getId();
+        return ResultBody.success(exerciseMapper.getExercisesByPageData(limit, offset, ownerId));
     }
 
     @Override

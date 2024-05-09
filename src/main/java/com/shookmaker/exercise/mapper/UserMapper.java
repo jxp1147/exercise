@@ -19,7 +19,7 @@ import java.util.List;
 public interface UserMapper {
     UserVO getUserByUserName(@Param("userName") String userName);
     Integer register(@Param("userDto") UserDTO userDto);
-    Integer updateUserById(@Param("user") UserDTO userDto);
+    Integer updateUser(@Param("userDto") UserDTO userDto);
     Integer deleteUserById(@Param("userId") Integer userId);
     UserVO getUserById(@Param("userId") Integer userId);
     List<UserVO> getUsers(@Param("limit") Integer limit, @Param("offset") Integer offset);

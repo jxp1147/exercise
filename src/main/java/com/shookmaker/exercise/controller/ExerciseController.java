@@ -3,7 +3,6 @@ package com.shookmaker.exercise.controller;
 import com.shookmaker.exercise.entity.dto.ExerciseDTO;
 import com.shookmaker.exercise.entity.vo.ExerciseVO;
 import com.shookmaker.exercise.exception.ResultBody;
-import com.shookmaker.exercise.mapper.ExerciseMapper;
 import com.shookmaker.exercise.service.IExerciseService;
 import com.shookmaker.exercise.uitls.GenerateModel;
 import com.shookmaker.exercise.uitls.PageData;
@@ -29,9 +28,7 @@ public class ExerciseController {
     }
     @PostMapping("/getExercisesByPageData")
     public ResultBody getExercisesByPageData(@RequestBody PageDataById pageDataById) {
-        PageData pageData = pageDataById.getPageData();
-        Integer userId = pageDataById.getId();
-        return service.getExercisesByPageData(pageData.getCurrentPage(), pageData.getPageSize(), userId);
+        return service.getExercisesByPageData(pageDataById);
     }
 
     @PostMapping("/getCollectExercises")
@@ -49,7 +46,7 @@ public class ExerciseController {
         return service.unCollectExercise(userId, exerciseId);
     }
     @PostMapping("/addExercise")
-    public ResultBody addExercise(@Param("exerciseDto") ExerciseDTO exerciseDto) {
+    public ResultBody addExercise(@RequestBody ExerciseDTO exerciseDto) {
         return service.addExercise(exerciseDto);
     }
     @PutMapping("/updateExercise")
