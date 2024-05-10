@@ -3,17 +3,20 @@ package com.shookmaker.exercise.uitls;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import okhttp3.*;
-import org.apache.logging.log4j.message.Message;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class GenerateModel {
 
-    final OkHttpClient HTTP_CLIENT = new OkHttpClient().newBuilder().build();
+    final OkHttpClient HTTP_CLIENT = new OkHttpClient().newBuilder()
+            .connectTimeout(10, TimeUnit.SECONDS) // 连接超时10秒
+            .readTimeout(30, TimeUnit.SECONDS)      // 读取超时15秒
+            .writeTimeout(30, TimeUnit.SECONDS)    // 写入超时10秒
+            .build();
 
     final String client_id = "pwD0Xou41z44vvV2DUmXtbzQ";
     final String client_secret = "LCuuJuTiuoihPCwjA0JVR44kZXPpbRA6";

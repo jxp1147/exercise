@@ -1,5 +1,6 @@
 package com.shookmaker.exercise.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.shookmaker.exercise.entity.dto.ExerciseDTO;
 import com.shookmaker.exercise.entity.vo.ExerciseVO;
 import com.shookmaker.exercise.exception.ResultBody;
@@ -21,7 +22,7 @@ public class ExerciseController {
     @Autowired
     private GenerateModel generateModel;
 
-    final String prefixContent = "以下问答中的答案进行优化，字数在100以内。\n";
+    final String prefixContent = "说出以下问答中，答案是否完善，若答案不完善，补充答案内容，若答案完善，则进行优化答案，字数在300以内。\n";
     @GetMapping("/{exerciseId}")
     public ResultBody getExerciseById(@PathVariable("exerciseId") Integer exerciseId) {
         return service.getExerciseById(exerciseId);
@@ -64,23 +65,10 @@ public class ExerciseController {
         String exerciseContent = exerciseVO.getExerciseContent();
         String chatContent = prefixContent + exerciseContent + "\n" + answer;
         try {
-           String content = generateModel.generate(chatContent);
-            return ResultBody.success(content);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResultBody.error("生成答案失败");
-        }
-    }
-
-    @GetMapping("/answer")
-    public ResultBody answer() {
-        String exerciseContent = "JavaScript 有哪些数据类型，它们的区别？";
-        String answer = "JavaScript 共有八种数据类型，分别是 Undefined、Null、Boolean、Number";
-        String chatContent = prefixContent + exerciseContent + "\n" + answer;
-        try {
             String content = generateModel.generate(chatContent);
-            System.out.println(content);
-            return ResultBody.success(content);
+            JSONObject jsonObject = JSONObject.parseObject(content);
+            String result = jsonObject.getString("result");
+            return ResultBody.success(result);
         } catch (Exception e) {
             e.printStackTrace();
             return ResultBody.error("生成答案失败");
